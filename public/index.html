@@ -13,19 +13,46 @@
             <h1>Hangman</h1>
             <h2><a href="game.html">Settings</a></h2>
         </div>
-        <span class="theme-title"><h3>Pick a theme:</h3></span>
+        <span class="themes">
+            <span class="theme-title"><h3>Pick a theme:</h3></span>
 
-        <span class="themes-section hide-element">
-            <span class="themes-top-section">
-                <div class="themes-top"></div>
-                <div class="themes-top"></div>
-                <div class="themes-top"></div>
-                <div class="themes-top"></div>
+            <span class="themes-section hide-element">
+                <span class="themes-top-section">
+                    <div class="themes-top" id="general-div">
+                        <p>General</p>
+                    </div>
+                    <div class="themes-top" id="science-div">
+                        <p>Science</p>
+                    </div>
+                    <div class="themes-top" id="nature-div"><p>Nature</p></div>
+                    <div class="themes-top" id="sports-div"><p>Sports</p></div>
+                </span>
+                <span class="themes-bottom-section">
+                    <div class="themes-bottom" id="movies-div">
+                        <p>Movies</p>
+                    </div>
+                    <div class="themes-bottom" id="games-div"><p>Games</p></div>
+                    <div class="themes-bottom" id="coding-div">
+                        <p>Coding</p>
+                    </div>
+                </span>
             </span>
-            <span class="themes-bottom-section">
-                <div class="themes-bottom"></div>
-                <div class="themes-bottom"></div>
-                <div class="themes-bottom"></div>
+        </span>
+        <span class="hangman-game">
+            <span class="hangman-game-top">
+                <h4>_ _ _ _ _ _</h4>
+            </span>
+            <span class="hangman-game-bottom">
+                <div class="hangman-game-left">
+                    <form>
+                        <input type="text" />
+                    </form>
+                    <p>Previous letters:</p>
+                    <ul class="previous-letters"></ul>
+                </div>
+                <div class="hangman-game-right">
+                    <div class="hangman-image-box"><img src="" alt="" /></div>
+                </div>
             </span>
         </span>
         <script src="/public/js/index.js"></script>

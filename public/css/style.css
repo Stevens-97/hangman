@@ -24,7 +24,7 @@ h1 {
     /* width: 34vh;
     height: 30h; */
     background-color: blue;
-    margin: 5vh;
+    /* margin: 5vh; */
     color: black;
     /* margin-top: 30vh; */
 }
@@ -33,7 +33,7 @@ h2 {
     /* width: 30vh;
     height: 100%; */
     background-color: blue;
-    margin: 5vh;
+    /* margin: 5vh; */
     color: black;
 }
 
@@ -55,6 +55,7 @@ h2 {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    color: azure;
 }
 
 .themes-top-section {
@@ -74,17 +75,58 @@ h2 {
 }
 
 .themes-top {
-    width: 10vh;
+    width: 20vh;
     height: 10vh;
     background-color: black;
     display: flex;
     margin: 5vh;
+    border-radius: 25%;
+    justify-content: center;
 }
 
 .themes-bottom {
-    width: 10vh;
+    width: 20vh;
     height: 10vh;
     background-color: black;
     display: flex;
     margin: 5vh;
+    border-radius: 25%;
+    justify-content: center;
+}
+
+.themes-bottom:hover,
+.themes-top:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 5px red;
+}
+
+p {
+    display: flex;
+    align-self: center;
+}
+
+/* hide theme choices */
+.themes {
+    display: none;
+}
+
+/* hide main game screen */
+/* .hangman-game{
+    display: none;
+} */
+
+.hangman-game-top {
+    display: flex;
+    justify-content: center;
+}
+
+.hangman-game-bottom {
+    display: flex;
+    justify-content: space-around;
+}
+
+.hangman-image-box {
+    background-color: black;
+    width: 40vh;
+    height: 40vh;
 }
