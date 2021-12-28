@@ -1,8 +1,90 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+    width: auto;
+    margin: 0px;
 }
 
 a {
-  color: #00B7FF;
+    color: #00b7ff;
+}
+
+.top-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+    height: 100%;
+    background-color: #00b7ff;
+    justify-content: space-between;
+    /* padding: 5vh; */
+    align-items: baseline;
+}
+
+h1 {
+    /* width: 34vh;
+    height: 30h; */
+    background-color: blue;
+    margin: 5vh;
+    color: black;
+    /* margin-top: 30vh; */
+}
+
+h2 {
+    /* width: 30vh;
+    height: 100%; */
+    background-color: blue;
+    margin: 5vh;
+    color: black;
+}
+
+.theme-title {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+/* experimenting with class to toggle to hide options */
+/* .theme-title:hover,
+.hide-element:hover {
+    display: none;
+} */
+
+.themes-section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.themes-top-section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.themes-bottom-section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.themes-top {
+    width: 10vh;
+    height: 10vh;
+    background-color: black;
+    display: flex;
+    margin: 5vh;
+}
+
+.themes-bottom {
+    width: 10vh;
+    height: 10vh;
+    background-color: black;
+    display: flex;
+    margin: 5vh;
 }
