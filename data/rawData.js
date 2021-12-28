@@ -1,4 +1,4 @@
-const arrayForGeneral = [
+export const arrayForGeneral = [
     'petite',
     'glance',
     'shirt',
@@ -16,7 +16,7 @@ const arrayForGeneral = [
     'mark',
 ]
 
-const arrayforScience = [
+export const arrayforScience = [
     'acid',
     'argon',
     'atoms',
@@ -35,7 +35,7 @@ const arrayforScience = [
     'symbiosis',
 ]
 
-const arrayforNature = [
+export const arrayforNature = [
     'flower',
     'grass',
     'sun',
@@ -53,7 +53,7 @@ const arrayforNature = [
     'fall',
 ]
 
-const arrayforSports = [
+export const arrayforSports = [
     'aerobics',
     'athlete',
     'basketball',
@@ -71,7 +71,7 @@ const arrayforSports = [
     'weights',
 ]
 
-const arrayforMovies = [
+export const arrayforMovies = [
     'poltergeist',
     'fences',
     'warrior',
@@ -89,7 +89,7 @@ const arrayforMovies = [
     'up',
     'rocky',
 ]
-const arrayforGames = [
+export const arrayforGames = [
     'minecraft',
     'fortnite',
     'halo',
@@ -108,7 +108,7 @@ const arrayforGames = [
     'hitman',
 ]
 
-const arrayforCoding = [
+export const arrayforCoding = [
     'string',
     'array',
     'boolean',
