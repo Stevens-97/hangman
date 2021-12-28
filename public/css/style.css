@@ -44,6 +44,7 @@ h2 {
 }
 
 /* experimenting with class to toggle to hide options */
+
 /* .theme-title:hover,
 .hide-element:hover {
     display: none;
@@ -106,14 +107,14 @@ p {
 }
 
 /* hide theme choices */
-.themes {
-    display: none;
-}
-
-/* hide main game screen */
-/* .hangman-game{
+/* .themes {
     display: none;
 } */
+
+/* hide main game screen */
+.hangman-game {
+    display: none;
+}
 
 .hangman-game-top {
     display: flex;
