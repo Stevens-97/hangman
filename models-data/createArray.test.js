@@ -6,12 +6,12 @@ describe(`CreateArray`, () => {
         let arrayOne = ['petite', 'glance', 'shirt', 'plod', 'light']
         let expected = {
             id: expect.any(Number),
-            letters: expect.any(Array),
+            theme: expect.any(String),
             word: expect.any(String),
             wordLength: expect.any(Number),
         }
         // Act
-        let actual = createArray(arrayOne)
+        let actual = createArray(arrayOne, 'general')
         // Assert
         actual.forEach(function (entry) {
             expect(entry).toStrictEqual(expected)
