@@ -1,11 +1,10 @@
 import query from '../index.js'
 
-async function createTable(array) {
+async function createTable() {
     let mySQLString = `CREATE TABLE words (
         word_id SERIAL PRIMARY KEY,
         theme TEXT,
-        word TEXT,
-        wordLength INT
+        word TEXT
     );`
     const response = await query(mySQLString)
     console.log(response.rows)

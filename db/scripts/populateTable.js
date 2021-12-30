@@ -13,13 +13,12 @@ async function populateTable(array) {
     let allAdditions = []
     for (let i = 0; i < array.length; i++) {
         const response = await query(
-            `INSERT INTO words (theme, word, wordLength)
+            `INSERT INTO words (theme, word)
         VALUES (
             $1,
-            $2, 
-            $3
+            $2
         ) RETURNING * ;`,
-            [array[i].theme, array[i].word, array[i].wordLength]
+            [array[i].theme, array[i].word]
         )
         console.log(response.rows)
         allAdditions.push(response.rows)
@@ -32,3 +31,4 @@ async function populateTable(array) {
 // populateTable(natureWords)
 // populateTable(scienceWords)
 // populateTable(sportsWords)
+// populateTable(generalWords)
