@@ -78,8 +78,14 @@
             </span>
             <span class="hangman-game-bottom">
                 <div class="hangman-game-left">
-                    <form>
-                        <input type="text" />
+                    <form onsubmit="return false" id="guess-form">
+                        <input
+                            type="text"
+                            placeholder="Place letter here!"
+                            type="text"
+                            id="guess-input"
+                        />
+                        <input type="submit" />
                     </form>
                     <p>Previous letters:</p>
                     <ul class="previous-letters"></ul>
