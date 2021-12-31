@@ -24,75 +24,80 @@ async function getGeneralTheme() {
     data.payload.forEach(function (cases) {
         console.log(cases.word);
     });
-}
-// let level = 0;
-// hideThemesShowGame();
-// loopGame(generateListofWords(data));
-// }
-getGeneralTheme();
-// // Clear screen
-// const themesSection = document.querySelector('.themes');
-// const gameSection = document.querySelector('.hangman-game');
 
-// function hideThemesShowGame() {
-//     themesSection.classList.toggle('hide-section');
-//     gameSection.classList.toggle('hide-section');
-// }
+    hideThemesShowGame();
+    loopGame(generateListofWords(data));
+}
+
+// // Clear screen
+const themesSection = document.querySelector('.themes');
+const gameSection = document.querySelector('.hangman-game');
+
+function hideThemesShowGame() {
+    themesSection.classList.toggle('hide-section');
+    gameSection.classList.toggle('hide-section');
+}
 
 // // generate list of words
-// function generateListofWords(data) {
-//     let wordArray = [];
-//     data.payload.forEach((entry) => {
-//         wordArray.push(entry.word);
-//     });
-//     return wordArray;
-// }
+function generateListofWords(data) {
+    let wordArray = [];
+    data.payload.forEach((entry) => {
+        wordArray.push(entry.word);
+    });
+    return wordArray;
+}
 
 // // Pull word via 'level'
 
-// function getWord(wordArray, level) {
-//     return wordArray[level - 1];
-// }
+function getWord(wordArray, level) {
+    return wordArray[level - 1];
+}
 
 // // Generate letter array
-// function generateLetterArray(word) {
-//     word = String(word);
-//     return word.split('');
-// }
+function generateLetterArray(word) {
+    word = String(word);
+    return word.split('');
+}
 
 // // Clear blanks
-// const h4Element = document.querySelector('h4');
-// function clearBlanks() {
-//     h4Element.innerText = '';
-// }
+const h4Element = document.querySelector('h4');
+function clearBlanks() {
+    h4Element.innerText = '';
+}
 
 // // Generate word blanks
-// function generateBlanks(letters) {
-//     let blanks = '';
-//     for (let i = 0; i < letters.length; i++) {
-//         blanks += '_ ';
-//     }
-//     h4Element.innerText = blanks;
-// }
+function generateBlanks(letters) {
+    let blanks = '';
+    for (let i = 0; i < letters.length; i++) {
+        blanks += '_ ';
+    }
+    h4Element.innerText = blanks;
+}
 
 // // Handle click
 
-// function handleClickGeneral(event) {
-//     event.preventDefault();
-//     getGeneralTheme();
-// }
+function handleClickGeneral(event) {
+    event.preventDefault();
+    getGeneralTheme();
+}
 
 // // Loop through game
 
-// function loopGame(wordArray) {
-//     let gameOn = true;
-//     let level = 0;
-//     while (gameOn) {
-//         level += 1;
-//         clearBlanks();
-//         let letters = generateLetterArray(getWord(wordArray));
-//         generateBlanks(letters);
-//     }
-// }
-
-// generalButton.addEventListener('click', getGeneralTheme());
+function loopGame(wordArray) {
+    console.log(wordArray);
+    let gameOn = true;
+    let level = 0;
+    while (gameOn) {
+        level += 1;
+        clearBlanks();
+        let letters = generateLetterArray(getWord(wordArray, level));
+        console.log(`letters are ${letters}`);
+        generateBlanks(letters);
+        let guessGame = true;
+        while (guessGame) {
+            console.log('We entered guessing section, ending now!');
+            guessGame = false;
+            gameOn = false;
+        }
+    }
+}
