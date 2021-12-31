@@ -106,13 +106,8 @@ p {
     align-self: center;
 }
 
-/* hide theme choices */
-/* .themes {
-    display: none;
-} */
-
-/* hide main game screen */
-.hangman-game {
+/* hide section */
+.hide-section {
     display: none;
 }
 
