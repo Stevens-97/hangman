@@ -14,8 +14,8 @@ const URL = 'http://localhost:3000';
 const generalButton = document.querySelector('#general-div');
 
 // Get word under set theme
-async function getGeneralTheme() {
-    const res = await fetch(`${URL}/words/themes/general`, {
+async function getTheme(theme) {
+    const res = await fetch(`${URL}/words/themes/${theme}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(),
@@ -72,13 +72,6 @@ function generateBlanks(letters) {
         blanks += '_ ';
     }
     h4Element.innerText = blanks;
-}
-
-// // Handle click
-
-function handleClickGeneral(event) {
-    event.preventDefault();
-    getGeneralTheme();
 }
 
 // // Loop through game
