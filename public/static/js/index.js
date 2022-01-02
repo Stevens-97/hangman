@@ -10,6 +10,15 @@
 //  - If guess is correct, replace all matching '_'s with the letter
 //      -- Check if the word has been guessed, if so, player wins, otherwise guess again
 
+const hangmanImages = [
+    './static/js/images/stage7.jpg',
+    './static/js/images/stage6.jpg',
+    './static/js/images/stage5.jpg',
+    './static/js/images/stage4.jpg',
+    './static/js/images/stage3.jpg',
+    './static/js/images/stage2.jpg',
+    './static/js/images/stage1.jpg',
+];
 const URL = 'http://localhost:3000';
 let letters;
 let lives;
@@ -104,12 +113,16 @@ function checkPlayerGuess(guess, letters, blanks) {
     }
     guessedLetters.push(guess);
     console.log(correctLetterIndex, correctLetters);
+    updatePreviousLetters(guess);
     if (CheckGuessIsCorrectOrNot(correctLetters)) {
         let check = CheckGuessIsCorrectOrNot(correctLetters);
         console.log(check);
         previousLetters.push(correctLetters);
         tracker++;
+        console.log(blanks, previousLetters);
         if (isWordComplete(blanks, previousLetters)) {
+            console.log('Entered correct stage');
+            clearPreviousLetters();
             generateNewWord(wordArray);
         } else {
             console.log(blanks);
@@ -121,7 +134,11 @@ function checkPlayerGuess(guess, letters, blanks) {
             );
         }
     } else {
-        lives--;
+        console.log(lives);
+        updateLives();
+        changeHangmanArt();
+        console.log(lives);
+
         if (isPlayerAlive()) {
             correctLetterIndex = [];
             correctLetters = [];
@@ -136,6 +153,47 @@ function checkPlayerGuess(guess, letters, blanks) {
             return;
         }
     }
+}
+
+// Update Level
+const levelPTag = document.querySelector('#level');
+function updateLevel() {
+    levelPTag.innerText = `Level: ${level}`;
+}
+
+// Update lives
+const livesPTag = document.querySelector('#lives');
+function updateLives() {
+    lives--;
+    livesPTag.innerText = `Lives: ${lives}`;
+}
+
+// Show lives initially
+function initialShowLives() {
+    livesPTag.innerText = `Lives: ${lives}`;
+}
+
+// Add to previous letters
+const list = document.querySelector('.previous-letters');
+function updatePreviousLetters(guess) {
+    const li = document.createElement('li');
+    li.innerText = guess;
+    list.appendChild(li);
+}
+
+// Clear previous letters
+function clearPreviousLetters() {
+    list.innerHTML = '';
+}
+
+// Change hangman art
+const hangmanBox = document.querySelector('#hangman-image-box');
+function changeHangmanArt() {
+    hangmanBox.src = hangmanImages[lives];
+}
+
+function changeHangmanArtFirstTime() {
+    hangmanBox.src = hangmanImages[6];
 }
 
 // Check player guess is correct/incorrect
@@ -223,6 +281,11 @@ function playerGuess() {
     let guess = input.value;
     console.log(letters, blanks, lives, guess);
     blanks = guessLetters(letters, blanks, guess);
+    if (isWordComplete(blanks, previousLetters)) {
+        console.log('Entered correct stage');
+        clearPreviousLetters();
+        generateNewWord(wordArray);
+    }
     console.log(blanks);
 
     return blanks;
@@ -240,9 +303,21 @@ function isPlayerAlive() {
 
 // game over function
 h5Element.addEventListener('click', hideGameShowTheme);
+
+const leftSide = document.querySelector('.hangman-game-left');
+
 function GameOver() {
     h4Element.innerText = '';
-    h5Element.innerText = `Game over! Click here to go back to themes! Level: ${level}`;
+    h5Element.innerText = `Game over! Click here to go back to themes!`;
+    clearPreviousLetters();
+    leftSide.classList.toggle('hide-section');
+}
+
+function gameWon() {
+    h4Element.innerText = '';
+    h5Element.innerText = `You cleared the game! Click here to go back to themes!`;
+    clearPreviousLetters();
+    leftSide.classList.toggle('hide-section');
 }
 
 // Hide game and show themes
@@ -250,18 +325,38 @@ const title = document.querySelector('#title');
 // title.addEventListener('click', hideGameShowTheme);
 
 function hideGameShowTheme() {
+    leftSide.classList.toggle('hide-section');
     themesSection.classList.toggle('hide-section');
     gameSection.classList.toggle('hide-section');
     // title.classList.toggle('title');
     return;
 }
 
+// Check blanks left
+function checkBlanksLeft() {
+    if (typeof blanks == 'object') {
+        let amount = 0;
+        blanks.forEach((blank) => {
+            if (blank != '_') {
+                return amount++;
+            }
+        });
+        return amount;
+    } else {
+        return;
+    }
+}
+
 // Check if player guess the word
 function isWordComplete(blanks, previousLetters) {
-    console.log(blanks, previousLetters);
-    if (blanks.length == previousLetters.length) {
+    console.log(blanks, previousLetters, letters, tracker);
+    let amount = checkBlanksLeft();
+    console.log(typeof blanks, amount, letters.length);
+    if (amount == letters.length) {
+        console.log('I came true!');
         return true;
     } else {
+        console.log("I didn't come true!");
         return false;
     }
 }
@@ -271,9 +366,13 @@ function isWordComplete(blanks, previousLetters) {
 function loopGame(wordArray) {
     console.log(wordArray);
     previousLetters = [];
-    lives = 5;
-    // while (gameOn) {
+    lives = 6;
+    level = 0;
     level += 1;
+    initialShowLives();
+    updateLevel();
+    changeHangmanArtFirstTime();
+
     letters = generateLetterArray(getWord(wordArray, level));
     console.log(`letters are ${letters}`);
     blanks = generateBlanks(letters);
@@ -284,12 +383,19 @@ function loopGame(wordArray) {
 function generateNewWord(wordArray) {
     console.log(wordArray);
     previousLetters = [];
-    lives = 5;
+    lives = 6;
     // while (gameOn) {
     level += 1;
     blanks = '';
-    letters = generateLetterArray(getWord(wordArray, level));
-    console.log(`letters are ${letters}`);
-    updatedBlanks = generateBlanks(letters);
-    console.log(blanks);
+    initialShowLives();
+    if (level == wordArray.length) {
+        gameWon();
+    } else {
+        updateLevel();
+        changeHangmanArtFirstTime();
+        letters = generateLetterArray(getWord(wordArray, level));
+        console.log(`letters are ${letters}`);
+        updatedBlanks = generateBlanks(letters);
+        console.log(blanks);
+    }
 }

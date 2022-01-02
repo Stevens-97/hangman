@@ -4,18 +4,13 @@ body {
     margin: 0px;
 }
 
-a {
-    color: #00b7ff;
-}
-
 .top-section {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: auto;
     height: 100%;
-    background-color: #00b7ff;
-    justify-content: space-between;
+    justify-content: center;
     /* padding: 5vh; */
     align-items: baseline;
 }
@@ -23,7 +18,6 @@ a {
 h1 {
     /* width: 34vh;
     height: 30h; */
-    background-color: blue;
     /* margin: 5vh; */
     color: black;
     /* margin-top: 30vh; */
@@ -32,7 +26,6 @@ h1 {
 h2 {
     /* width: 30vh;
     height: 100%; */
-    background-color: blue;
     /* margin: 5vh; */
     color: black;
 }
@@ -129,4 +122,9 @@ p {
 
 .title:hover {
     transform: scale(1.1);
+}
+
+#hangman-image-box {
+    width: 100%;
+    height: 100%;
 }
