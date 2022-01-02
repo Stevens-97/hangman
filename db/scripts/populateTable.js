@@ -1,4 +1,4 @@
-import query from '../index.js'
+import query from '../index.js';
 import {
     generalWords,
     codingWords,
@@ -7,10 +7,10 @@ import {
     natureWords,
     scienceWords,
     sportsWords,
-} from '../../data/data.js'
+} from '../../data/data.js';
 
 async function populateTable(array) {
-    let allAdditions = []
+    let allAdditions = [];
     for (let i = 0; i < array.length; i++) {
         const response = await query(
             `INSERT INTO words (theme, word)
@@ -19,16 +19,16 @@ async function populateTable(array) {
             $2
         ) RETURNING * ;`,
             [array[i].theme, array[i].word]
-        )
-        console.log(response.rows)
-        allAdditions.push(response.rows)
+        );
+        console.log(response.rows);
+        allAdditions.push(response.rows);
     }
-    return allAdditions
+    return allAdditions;
 }
-// populateTable(codingWords)
-// populateTable(gamingWords)
-// populateTable(movieWords)
-// populateTable(natureWords)
-// populateTable(scienceWords)
-// populateTable(sportsWords)
-// populateTable(generalWords)
+populateTable(codingWords);
+populateTable(gamingWords);
+populateTable(movieWords);
+populateTable(natureWords);
+populateTable(scienceWords);
+populateTable(sportsWords);
+populateTable(generalWords);

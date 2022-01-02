@@ -126,3 +126,7 @@ p {
     width: 40vh;
     height: 40vh;
 }
+
+.title:hover {
+    transform: scale(1.1);
+}

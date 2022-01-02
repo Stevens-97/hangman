@@ -15,10 +15,15 @@ let letters;
 let lives;
 let blanks;
 let guessedLetters = [];
-let blanksArray;
+// let blanksArray;
 let tracker = 0;
+let level = 0;
 newBlanks = [];
+let wordArray = [];
+let previousLetters = [];
+let updatedBlanks;
 const generalButton = document.querySelector('#general-div');
+const h5Element = document.querySelector('h5');
 
 // Get word under set theme
 async function getTheme(theme) {
@@ -31,7 +36,8 @@ async function getTheme(theme) {
     data.payload.forEach(function (cases) {
         console.log(cases.word);
     });
-
+    wordArray = [];
+    previousLetters = [];
     hideThemesShowGame();
     loopGame(generateListofWords(data));
 }
@@ -41,13 +47,14 @@ const themesSection = document.querySelector('.themes');
 const gameSection = document.querySelector('.hangman-game');
 
 function hideThemesShowGame() {
+    h5Element.innerText = '';
     themesSection.classList.toggle('hide-section');
     gameSection.classList.toggle('hide-section');
+    title.classList.toggle('title');
 }
 
 // // generate list of words
 function generateListofWords(data) {
-    let wordArray = [];
     data.payload.forEach((entry) => {
         wordArray.push(entry.word);
     });
@@ -74,7 +81,7 @@ function clearBlanks() {
 
 // // Generate word blanks
 function generateBlanks(letters) {
-    let blanks = [];
+    blanks = [];
     for (let x = 0; x < letters.length; x++) {
         blanks += '_ ';
     }
@@ -84,7 +91,7 @@ function generateBlanks(letters) {
 
 // Check player guess
 
-function checkPlayerGuess(guess, letters, blanks, lives) {
+function checkPlayerGuess(guess, letters, blanks) {
     let correctLetterIndex = [];
     let correctLetters = [];
 
@@ -100,23 +107,34 @@ function checkPlayerGuess(guess, letters, blanks, lives) {
     if (CheckGuessIsCorrectOrNot(correctLetters)) {
         let check = CheckGuessIsCorrectOrNot(correctLetters);
         console.log(check);
+        previousLetters.push(correctLetters);
         tracker++;
-        return fillInH4Element(
-            correctLetterIndex,
-            correctLetters,
-            blanks,
-            guess
-        );
+        if (isWordComplete(blanks, previousLetters)) {
+            generateNewWord(wordArray);
+        } else {
+            console.log(blanks);
+            return fillInH4Element(
+                correctLetterIndex,
+                correctLetters,
+                blanks,
+                guess
+            );
+        }
     } else {
         lives--;
-        correctLetterIndex = [];
-        correctLetters = [];
-        return fillInH4Element(
-            correctLetterIndex,
-            correctLetters,
-            blanks,
-            guess
-        );
+        if (isPlayerAlive()) {
+            correctLetterIndex = [];
+            correctLetters = [];
+            return fillInH4Element(
+                correctLetterIndex,
+                correctLetters,
+                blanks,
+                guess
+            );
+        } else {
+            GameOver();
+            return;
+        }
     }
 }
 
@@ -150,6 +168,7 @@ function editH4ElementViaBlanks(blanksArray) {
 // Fill in H4 Element after correct guess
 function fillInH4Element(correctLetterIndex, correctLetters, blanks, guess) {
     console.log(blanks);
+    newBlanks = [];
     if (typeof blanks == typeof '') {
         blanks = blanks.split(' ');
 
@@ -179,11 +198,11 @@ function fillInH4Element(correctLetterIndex, correctLetters, blanks, guess) {
 }
 
 // Loop through guessing
-function guessLetters(letters, blanks, lives, guess) {
+function guessLetters(letters, blanks, guess) {
     console.log(letters, blanks, lives, guess);
 
     console.log('We entered guessing section, ending now!');
-    blanks = checkPlayerGuess(guess, letters, blanks, lives);
+    blanks = checkPlayerGuess(guess, letters, blanks);
     console.log(blanks);
     return blanks;
 }
@@ -195,22 +214,82 @@ const input = document.querySelector('#guess-input');
 form.addEventListener('submit', playerGuess);
 
 function playerGuess() {
+    if (blanks == undefined) {
+        blanks = updatedBlanks;
+        console.log(blanks);
+    }
+    console.log(lives);
     console.log('playerguess repeats');
     let guess = input.value;
     console.log(letters, blanks, lives, guess);
-    blanks = guessLetters(letters, blanks, lives, guess);
+    blanks = guessLetters(letters, blanks, guess);
     console.log(blanks);
+
+    return blanks;
 }
-// Loop through game
+
+// Check if player lost
+
+function isPlayerAlive() {
+    if (lives == 0) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// game over function
+h5Element.addEventListener('click', hideGameShowTheme);
+function GameOver() {
+    h4Element.innerText = '';
+    h5Element.innerText = `Game over! Click here to go back to themes! Level: ${level}`;
+}
+
+// Hide game and show themes
+const title = document.querySelector('#title');
+// title.addEventListener('click', hideGameShowTheme);
+
+function hideGameShowTheme() {
+    themesSection.classList.toggle('hide-section');
+    gameSection.classList.toggle('hide-section');
+    // title.classList.toggle('title');
+    return;
+}
+
+// Check if player guess the word
+function isWordComplete(blanks, previousLetters) {
+    console.log(blanks, previousLetters);
+    if (blanks.length == previousLetters.length) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Loop through game first time
 
 function loopGame(wordArray) {
     console.log(wordArray);
-    level = 0;
+    previousLetters = [];
     lives = 5;
     // while (gameOn) {
     level += 1;
-    clearBlanks();
     letters = generateLetterArray(getWord(wordArray, level));
     console.log(`letters are ${letters}`);
     blanks = generateBlanks(letters);
+}
+
+// loop through game after first textEmphasisStyle:
+
+function generateNewWord(wordArray) {
+    console.log(wordArray);
+    previousLetters = [];
+    lives = 5;
+    // while (gameOn) {
+    level += 1;
+    blanks = '';
+    letters = generateLetterArray(getWord(wordArray, level));
+    console.log(`letters are ${letters}`);
+    updatedBlanks = generateBlanks(letters);
+    console.log(blanks);
 }
