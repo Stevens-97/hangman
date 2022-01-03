@@ -42,9 +42,6 @@ async function getTheme(theme) {
         body: JSON.stringify(),
     });
     const data = await res.json();
-    data.payload.forEach(function (cases) {
-        console.log(cases.word);
-    });
     wordArray = [];
     previousLetters = [];
     hideThemesShowGame();
@@ -106,26 +103,19 @@ function checkPlayerGuess(guess, letters, blanks) {
 
     for (let i = 0; i < letters.length; i++) {
         if (letters[i] === guess) {
-            console.log(letters[i]);
             correctLetterIndex.push(i);
             correctLetters.push(letters[i]);
         }
     }
     guessedLetters.push(guess);
-    console.log(correctLetterIndex, correctLetters);
     updatePreviousLetters(guess);
     if (CheckGuessIsCorrectOrNot(correctLetters)) {
-        let check = CheckGuessIsCorrectOrNot(correctLetters);
-        console.log(check);
         previousLetters.push(correctLetters);
         tracker++;
-        console.log(blanks, previousLetters);
         if (isWordComplete(blanks, previousLetters)) {
-            console.log('Entered correct stage');
             clearPreviousLetters();
             generateNewWord(wordArray);
         } else {
-            console.log(blanks);
             return fillInH4Element(
                 correctLetterIndex,
                 correctLetters,
@@ -134,11 +124,8 @@ function checkPlayerGuess(guess, letters, blanks) {
             );
         }
     } else {
-        console.log(lives);
         updateLives();
         changeHangmanArt();
-        console.log(lives);
-
         if (isPlayerAlive()) {
             correctLetterIndex = [];
             correctLetters = [];
@@ -201,7 +188,6 @@ function CheckGuessIsCorrectOrNot(correctLetters) {
     if (correctLetters.length > 0) {
         return true;
     } else {
-        // console log only prints false when in ''s.
         return false;
     }
 }
@@ -225,7 +211,6 @@ function editH4ElementViaBlanks(blanksArray) {
 
 // Fill in H4 Element after correct guess
 function fillInH4Element(correctLetterIndex, correctLetters, blanks, guess) {
-    console.log(blanks);
     newBlanks = [];
     if (typeof blanks == typeof '') {
         blanks = blanks.split(' ');
@@ -234,7 +219,6 @@ function fillInH4Element(correctLetterIndex, correctLetters, blanks, guess) {
 
         for (let i = 0; i < blanks.length; i++) {
             newBlanks.push('_');
-            console.log(newBlanks);
         }
         for (let i = 0; i < correctLetterIndex.length; i++) {
             newBlanks.splice(correctLetterIndex[i], 1, guess);
@@ -246,22 +230,14 @@ function fillInH4Element(correctLetterIndex, correctLetters, blanks, guess) {
         }
     }
     editH4ElementViaBlanks(newBlanks);
-    console.log(blanks);
-    console.log(correctLetterIndex, correctLetters);
-
-    console.log(typeof newBlanks);
     // h4Element.innerText = blanksArray.join(',');
-    editH4ElementViaBlanks(newBlanks);
+    // editH4ElementViaBlanks(newBlanks);
     return newBlanks;
 }
 
 // Loop through guessing
 function guessLetters(letters, blanks, guess) {
-    console.log(letters, blanks, lives, guess);
-
-    console.log('We entered guessing section, ending now!');
     blanks = checkPlayerGuess(guess, letters, blanks);
-    console.log(blanks);
     return blanks;
 }
 
@@ -276,18 +252,12 @@ function playerGuess() {
         blanks = updatedBlanks;
         console.log(blanks);
     }
-    console.log(lives);
-    console.log('playerguess repeats');
     let guess = input.value;
-    console.log(letters, blanks, lives, guess);
     blanks = guessLetters(letters, blanks, guess);
     if (isWordComplete(blanks, previousLetters)) {
-        console.log('Entered correct stage');
         clearPreviousLetters();
         generateNewWord(wordArray);
     }
-    console.log(blanks);
-
     return blanks;
 }
 
@@ -349,14 +319,10 @@ function checkBlanksLeft() {
 
 // Check if player guess the word
 function isWordComplete(blanks, previousLetters) {
-    console.log(blanks, previousLetters, letters, tracker);
     let amount = checkBlanksLeft();
-    console.log(typeof blanks, amount, letters.length);
     if (amount == letters.length) {
-        console.log('I came true!');
         return true;
     } else {
-        console.log("I didn't come true!");
         return false;
     }
 }
@@ -384,11 +350,10 @@ function generateNewWord(wordArray) {
     console.log(wordArray);
     previousLetters = [];
     lives = 6;
-    // while (gameOn) {
     level += 1;
     blanks = '';
     initialShowLives();
-    if (level == wordArray.length) {
+    if (level == wordArray.length + 1) {
         gameWon();
     } else {
         updateLevel();
@@ -396,6 +361,5 @@ function generateNewWord(wordArray) {
         letters = generateLetterArray(getWord(wordArray, level));
         console.log(`letters are ${letters}`);
         updatedBlanks = generateBlanks(letters);
-        console.log(blanks);
     }
 }

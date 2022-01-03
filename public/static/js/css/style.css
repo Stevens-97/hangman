@@ -91,7 +91,7 @@ h2 {
 .themes-bottom:hover,
 .themes-top:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 5px red;
+    box-shadow: 0 0 5px black;
 }
 
 p {
