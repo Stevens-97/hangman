@@ -250,7 +250,7 @@ form.addEventListener('submit', playerGuess);
 function playerGuess() {
     if (blanks == undefined) {
         blanks = updatedBlanks;
-        console.log(blanks);
+        // console.log(blanks);
     }
     let guess = input.value;
     blanks = guessLetters(letters, blanks, guess);
@@ -330,7 +330,7 @@ function isWordComplete(blanks, previousLetters) {
 // Loop through game first time
 
 function loopGame(wordArray) {
-    console.log(wordArray);
+    // console.log(wordArray);
     previousLetters = [];
     lives = 6;
     level = 0;
@@ -347,7 +347,7 @@ function loopGame(wordArray) {
 // loop through game after first textEmphasisStyle:
 
 function generateNewWord(wordArray) {
-    console.log(wordArray);
+    // console.log(wordArray);
     previousLetters = [];
     lives = 6;
     level += 1;
@@ -359,7 +359,7 @@ function generateNewWord(wordArray) {
         updateLevel();
         changeHangmanArtFirstTime();
         letters = generateLetterArray(getWord(wordArray, level));
-        console.log(`letters are ${letters}`);
+        // console.log(`letters are ${letters}`);
         updatedBlanks = generateBlanks(letters);
     }
 }

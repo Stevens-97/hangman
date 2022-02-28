@@ -38,7 +38,7 @@ describe(`HTTP request`, ()=>{
                     theme: expect.any(String),
                     word: expect.any(String)
                 }
-                expect(actual).toStrictEqual(actual)
+                expect(actual).toStrictEqual(expected)
             })
     })
     it(`Should return status 200 and also return every word with a set theme as an array of objects
